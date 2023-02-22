@@ -1,0 +1,11 @@
+.mypy_cache
+repositories/
+transpiled/
+compiled/
+targets/
+result/
+node_modules/
+*/**/*.pyc
+*/**/*.jsc
+*/**/*.rbc
+*/**/DS_Store
