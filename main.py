@@ -1,11 +1,13 @@
 import click
 import os
+import subprocess
 from src.crawler import Crawler
 from src.compiler import Compiler
 from src.string_normalizer import StringNormalizer
 from src.scraper import WebScraper
 from src.bytecode_normalizer import BytecodeNormalizer
 from src.write_csv import WriteCSVDateSet
+from src.source_code_parser import SourceCodeParser
 
 
 @click.group()
@@ -114,6 +116,32 @@ def print_bytecode(target: str, lang: str, all: bool, output: str):
     '--target',
     type=str,
     required=True,
+    help='Path of the github repository to print-bytecode'
+)
+@click.option(
+    '--output',
+    type=str,
+    required=False,
+    help='output dir'
+)
+def run_bandit(target: str, output: str):
+    target = target if target.endswith('/') else target + '/'
+    files = [target + f for f in os.listdir(target)]
+    for f in files:
+        if not f.endswith(".py"):
+            continue
+        print(f)
+        file_name = f.split("/")[-1]
+        print(f"execute: bandit -r {f} > {output}/{file_name}.txt")
+        subprocess.run(f"bandit -r {f} > {output}/{file_name}.txt", shell=True)
+
+
+
+@cli.command()
+@click.option(
+    '--target',
+    type=str,
+    required=True,
     help='Path of the compiled files dir'
 )
 @click.option(
@@ -142,6 +170,12 @@ def normalize_string(target: str, output: str):
     help='file extension'
 )
 @click.option(
+    '--lang',
+    type=str,
+    required=True,
+    help='Language in which the source code of the repository is written'
+)
+@click.option(
     '--output',
     type=str,
     required=True,
@@ -149,7 +183,49 @@ def normalize_string(target: str, output: str):
 )
 def normalize_bytecode(target: str, extension: str, output: str):
     normalizer = BytecodeNormalizer(target_path=target, extension=extension)
-    normalizer.normalize_all(output)
+    # normalizer.normalize_all(output)
+    print(normalizer.normalize("src/test_req.pyc.txt"))
+
+
+@cli.command()
+@click.option(
+    '--target',
+    type=str,
+    required=True,
+    help='Path of the compiled files dir'
+)
+@click.option(
+    '--all',
+    is_flag=True,
+    required=False,
+    help='Language in which the source code of the repository is written'
+)
+@click.option(
+    '--label',
+    type=str,
+    required=True,
+    help='label'
+)
+def parse_source_code(target: str, all: bool, label: str):
+    if all:
+        target = target if target.endswith('/') else target + '/'
+        files = [target + f for f in os.listdir(target)]
+    else:
+        files = [target[:-1]] if target.endswith('/') else [target]
+    
+    results = []
+    for file in files:
+        if not file.endswith(".py"):
+            continue
+        parser = SourceCodeParser()
+        str_array = parser.parse(file_path=file)
+        if not str_array:
+            continue
+        results.append([file.split("/")[-1], label, str_array])
+    
+    write_csv = WriteCSVDateSet()
+    write_csv.write_to_csv(results)
+        
 
 
 @cli.command()

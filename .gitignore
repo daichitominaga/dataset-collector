@@ -5,7 +5,12 @@ compiled/
 targets/
 result/
 node_modules/
+embed_malicious_codes/
+malicious_code/
+print-bytecode/
+bandit_result/
 */**/*.pyc
 */**/*.jsc
 */**/*.rbc
 */**/DS_Store
+*.pyc

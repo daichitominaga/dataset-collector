@@ -31,11 +31,18 @@ class PythonCompiler(BaseCompiler):
     
     def print_bytecode(self, dir_path: str):
         for file in glob.glob(f"{dir_path}/**/*.py", recursive=True):
-            if "test" in file or os.path.exists(f"{file}.pyc.txt"):
+            print(os.path.exists(f"{file}.pyc.txt"))
+            if os.path.exists(f"{file}.pyc.txt"):
                 continue
             file = file.replace("./", "")
-            print(f"execute: python -m dis {file} > {file}.pyc.txt")
-            subprocess.run(f"python -m dis {file} > {file}.pyc.txt", shell=True)
+            try:
+                print(f"execute: python -m dis {file} > {file}.pyc.txt")
+                subprocess.run(f"python -m dis {file} > {file}.pyc.txt", shell=True)
+            except:
+                print(f"execute: 2to3 -w {file}")
+                subprocess.run(f"2to3 -w {file}", shell=True)
+                print(f"execute: python -m dis {file} > {file}.pyc.txt")
+                subprocess.run(f"python -m dis {file} > {file}.pyc.txt", shell=True)
         return self.collect_target_files(dir_path, "pyc.txt")
 
 class JsCompiler(BaseCompiler):
@@ -51,14 +58,26 @@ class JsCompiler(BaseCompiler):
         print(f"execute: bytenode -c {output_dir}/**/*.js")
         subprocess.run(f"bytenode -c {output_dir}/**/*.js", shell=True)
         return self.collect_target_files(output_dir, "jsc")
+
+    def print_bytecode(self, dir_path: str):
+        # jsのprint-byteceは24017から始まる
+        transpiled_dir = f"transpiled/maloss_sample/js"
+        for file in glob.glob(f"{dir_path}/**/*.js", recursive=True):
+            file_name = file.split('/')[-1]
+            if "test" in file or os.path.exists(f"{transpiled_dir}/{file_name}.jsc.txt"):
+                continue
+            transpiled_dir = self.transpile_js(transpiled_dir, file)
+            transpiled_js = f"{transpiled_dir}/{file_name}"
+            print(f"execute: node --print-bytecode {transpiled_js} > {transpiled_dir}/{file_name}.jsc.txt")
+            subprocess.run(f"node --print-bytecode {transpiled_js} > {transpiled_dir}/{file_name}.jsc.txt", shell=True)
+        return self.collect_target_files(transpiled_dir, "jsc.txt")
     
-    def transpile_js(self, dir_path: str):
+    def transpile_js(self, transpiled_dir: str, file_path: str):
         babel = "./node_modules/.bin/babel"
-        repo_name = dir_path.split("/")[-1]
-        output_dir = f"transpiled/network/js/{repo_name}"
-        subprocess.run(
-            f"{babel} {dir_path} --out-dir {output_dir}", shell=True)
-        return output_dir
+        # repo_name = dir_path.split("/")[-1]
+        # subprocess.run(
+        #     f"{babel} {file_path} --out-dir {transpiled_dir}", shell=True)
+        return transpiled_dir
 
 class RubyCompiler(BaseCompiler):
 
@@ -127,9 +146,10 @@ class Compiler:
             if not os.path.exists(f"{output_path}{file_path}"):
                 os.makedirs(f"{output_path}{file_path}")
             if os.path.exists(f"{output_path}{file_path}/{file_name}"):
-                print(f"exists {file_name}")
+                # print(f"exists {file_name}")
                 continue
             if os.path.exists(f):
-                print(f"exists: {f}")
-            print(f"move {f} > {output_path}{file_path}")
+                # print(f"exists: {f}")
+                pass
+            # print(f"move {f} > {output_path}{file_path}")
             shutil.move(f, f"{output_path}{file_path}")
