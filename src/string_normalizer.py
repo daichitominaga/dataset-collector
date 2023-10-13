@@ -4,7 +4,7 @@ import subprocess
 from typing import List, Dict
 from functools import reduce
 
-class BytecodeNormalizer:
+class StringNormalizer:
 
     def __init__(self, target: str) -> None:
         self.target = target
