@@ -1,0 +1,91 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (base64)
+             14 STORE_NAME               1 (base64)
+
+  4          16 LOAD_CONST               2 (<code object irrelevant_function at 0x10dfd58f0, file "malicious_code/py/Listing1/sample85.py", line 4>)
+             18 LOAD_CONST               3 ('irrelevant_function')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (irrelevant_function)
+
+  7          24 LOAD_CONST               4 (<code object get_command at 0x10dfd59a0, file "malicious_code/py/Listing1/sample85.py", line 7>)
+             26 LOAD_CONST               5 ('get_command')
+             28 MAKE_FUNCTION            0
+             30 STORE_NAME               3 (get_command)
+
+ 10          32 LOAD_CONST               6 (<code object laptop at 0x10dfd5a50, file "malicious_code/py/Listing1/sample85.py", line 10>)
+             34 LOAD_CONST               7 ('laptop')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (laptop)
+
+ 13          40 LOAD_CONST               8 (<code object projector at 0x10dfd5b00, file "malicious_code/py/Listing1/sample85.py", line 13>)
+             42 LOAD_CONST               9 ('projector')
+             44 MAKE_FUNCTION            0
+             46 STORE_NAME               5 (projector)
+
+ 18          48 LOAD_NAME                3 (get_command)
+             50 CALL_FUNCTION            0
+             52 STORE_NAME               6 (command)
+
+ 19          54 LOAD_NAME                4 (laptop)
+             56 LOAD_NAME                6 (command)
+             58 CALL_FUNCTION            1
+             60 STORE_NAME               7 (encoded_command)
+
+ 20          62 LOAD_NAME                5 (projector)
+             64 LOAD_NAME                7 (encoded_command)
+             66 CALL_FUNCTION            1
+             68 POP_TOP
+             70 LOAD_CONST               1 (None)
+             72 RETURN_VALUE
+
+Disassembly of <code object irrelevant_function at 0x10dfd58f0, file "malicious_code/py/Listing1/sample85.py", line 4>:
+  5           0 LOAD_GLOBAL              0 (print)
+              2 LOAD_CONST               1 ('This function is not related to the main purpose of the code.')
+              4 CALL_FUNCTION            1
+              6 POP_TOP
+              8 LOAD_CONST               0 (None)
+             10 RETURN_VALUE
+
+Disassembly of <code object get_command at 0x10dfd59a0, file "malicious_code/py/Listing1/sample85.py", line 7>:
+  8           0 LOAD_CONST               1 ('ps -aux')
+              2 RETURN_VALUE
+
+Disassembly of <code object laptop at 0x10dfd5a50, file "malicious_code/py/Listing1/sample85.py", line 10>:
+ 11           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64encode)
+              4 LOAD_FAST                0 (cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 RETURN_VALUE
+
+Disassembly of <code object projector at 0x10dfd5b00, file "malicious_code/py/Listing1/sample85.py", line 13>:
+ 14           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64decode)
+              4 LOAD_FAST                0 (encoded_cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 STORE_FAST               1 (decoded_cmd)
+
+ 15          18 LOAD_GLOBAL              4 (irrelevant_function)
+             20 CALL_FUNCTION            0
+             22 POP_TOP
+
+ 16          24 LOAD_GLOBAL              5 (os)
+             26 LOAD_METHOD              6 (system)
+             28 LOAD_FAST                1 (decoded_cmd)
+             30 CALL_METHOD              1
+             32 POP_TOP
+             34 LOAD_CONST               0 (None)
+             36 RETURN_VALUE

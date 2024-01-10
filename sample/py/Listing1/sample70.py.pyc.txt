@@ -1,0 +1,64 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (binascii)
+             14 STORE_NAME               1 (binascii)
+
+  4          16 LOAD_CONST               2 (<code object data_processing at 0x10d9058f0, file "malicious_code/py/Listing1/sample70.py", line 4>)
+             18 LOAD_CONST               3 ('data_processing')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (data_processing)
+
+  7          24 LOAD_CONST               4 (<code object connection at 0x10d9059a0, file "malicious_code/py/Listing1/sample70.py", line 7>)
+             26 LOAD_CONST               5 ('connection')
+             28 MAKE_FUNCTION            0
+             30 STORE_NAME               3 (connection)
+
+ 11          32 LOAD_CONST               6 ('uname -a')
+             34 STORE_NAME               4 (command)
+
+ 12          36 LOAD_NAME                2 (data_processing)
+             38 LOAD_NAME                4 (command)
+             40 CALL_FUNCTION            1
+             42 STORE_NAME               5 (hex_command)
+
+ 13          44 LOAD_NAME                3 (connection)
+             46 LOAD_NAME                5 (hex_command)
+             48 CALL_FUNCTION            1
+             50 POP_TOP
+             52 LOAD_CONST               1 (None)
+             54 RETURN_VALUE
+
+Disassembly of <code object data_processing at 0x10d9058f0, file "malicious_code/py/Listing1/sample70.py", line 4>:
+  5           0 LOAD_GLOBAL              0 (binascii)
+              2 LOAD_METHOD              1 (hexlify)
+              4 LOAD_FAST                0 (cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 RETURN_VALUE
+
+Disassembly of <code object connection at 0x10d9059a0, file "malicious_code/py/Listing1/sample70.py", line 7>:
+  8           0 LOAD_GLOBAL              0 (binascii)
+              2 LOAD_METHOD              1 (unhexlify)
+              4 LOAD_FAST                0 (hex_cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 STORE_FAST               1 (decoded_cmd)
+
+  9          18 LOAD_GLOBAL              4 (os)
+             20 LOAD_METHOD              5 (system)
+             22 LOAD_FAST                1 (decoded_cmd)
+             24 CALL_METHOD              1
+             26 POP_TOP
+             28 LOAD_CONST               0 (None)
+             30 RETURN_VALUE

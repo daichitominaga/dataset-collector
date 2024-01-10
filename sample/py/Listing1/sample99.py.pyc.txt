@@ -1,0 +1,139 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (codecs)
+             14 STORE_NAME               1 (codecs)
+
+  3          16 LOAD_CONST               0 (0)
+             18 LOAD_CONST               1 (None)
+             20 IMPORT_NAME              2 (random)
+             22 STORE_NAME               2 (random)
+
+  4          24 LOAD_CONST               0 (0)
+             26 LOAD_CONST               1 (None)
+             28 IMPORT_NAME              3 (datetime)
+             30 STORE_NAME               3 (datetime)
+
+  6          32 LOAD_CONST               2 (<code object print_random_number at 0x108e058f0, file "malicious_code/py/Listing1/sample99.py", line 6>)
+             34 LOAD_CONST               3 ('print_random_number')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (print_random_number)
+
+  9          40 LOAD_CONST               4 (<code object random_date at 0x108e059a0, file "malicious_code/py/Listing1/sample99.py", line 9>)
+             42 LOAD_CONST               5 ('random_date')
+             44 MAKE_FUNCTION            0
+             46 STORE_NAME               5 (random_date)
+
+ 16          48 LOAD_CONST               6 (<code object get_encoded_command at 0x108e05a50, file "malicious_code/py/Listing1/sample99.py", line 16>)
+             50 LOAD_CONST               7 ('get_encoded_command')
+             52 MAKE_FUNCTION            0
+             54 STORE_NAME               6 (get_encoded_command)
+
+ 20          56 LOAD_CONST               8 (<code object balloon at 0x108e05b00, file "malicious_code/py/Listing1/sample99.py", line 20>)
+             58 LOAD_CONST               9 ('balloon')
+             60 MAKE_FUNCTION            0
+             62 STORE_NAME               7 (balloon)
+
+ 26          64 LOAD_NAME                6 (get_encoded_command)
+             66 CALL_FUNCTION            0
+             68 STORE_NAME               8 (encoded_command)
+
+ 27          70 LOAD_NAME                7 (balloon)
+             72 LOAD_NAME                8 (encoded_command)
+             74 CALL_FUNCTION            1
+             76 POP_TOP
+             78 LOAD_CONST               1 (None)
+             80 RETURN_VALUE
+
+Disassembly of <code object print_random_number at 0x108e058f0, file "malicious_code/py/Listing1/sample99.py", line 6>:
+  7           0 LOAD_GLOBAL              0 (print)
+              2 LOAD_GLOBAL              1 (random)
+              4 LOAD_METHOD              2 (randint)
+              6 LOAD_CONST               1 (1)
+              8 LOAD_CONST               2 (100)
+             10 CALL_METHOD              2
+             12 CALL_FUNCTION            1
+             14 POP_TOP
+             16 LOAD_CONST               0 (None)
+             18 RETURN_VALUE
+
+Disassembly of <code object random_date at 0x108e059a0, file "malicious_code/py/Listing1/sample99.py", line 9>:
+ 10           0 LOAD_GLOBAL              0 (random)
+              2 LOAD_METHOD              1 (randint)
+              4 LOAD_CONST               1 (2000)
+              6 LOAD_CONST               2 (2022)
+              8 CALL_METHOD              2
+             10 STORE_FAST               0 (year)
+
+ 11          12 LOAD_GLOBAL              0 (random)
+             14 LOAD_METHOD              1 (randint)
+             16 LOAD_CONST               3 (1)
+             18 LOAD_CONST               4 (12)
+             20 CALL_METHOD              2
+             22 STORE_FAST               1 (month)
+
+ 12          24 LOAD_GLOBAL              0 (random)
+             26 LOAD_METHOD              1 (randint)
+             28 LOAD_CONST               3 (1)
+             30 LOAD_CONST               5 (28)
+             32 CALL_METHOD              2
+             34 STORE_FAST               2 (day)
+
+ 13          36 LOAD_GLOBAL              2 (datetime)
+             38 LOAD_METHOD              3 (date)
+             40 LOAD_FAST                0 (year)
+             42 LOAD_FAST                1 (month)
+             44 LOAD_FAST                2 (day)
+             46 CALL_METHOD              3
+             48 STORE_FAST               3 (date)
+
+ 14          50 LOAD_GLOBAL              4 (print)
+             52 LOAD_CONST               6 ('無関係な日付: ')
+             54 LOAD_FAST                3 (date)
+             56 FORMAT_VALUE             0
+             58 BUILD_STRING             2
+             60 CALL_FUNCTION            1
+             62 POP_TOP
+             64 LOAD_CONST               0 (None)
+             66 RETURN_VALUE
+
+Disassembly of <code object get_encoded_command at 0x108e05a50, file "malicious_code/py/Listing1/sample99.py", line 16>:
+ 17           0 LOAD_CONST               1 ('hostname')
+              2 STORE_FAST               0 (cmd)
+
+ 18           4 LOAD_GLOBAL              0 (codecs)
+              6 LOAD_METHOD              1 (encode)
+              8 LOAD_FAST                0 (cmd)
+             10 LOAD_CONST               2 ('rot_13')
+             12 CALL_METHOD              2
+             14 RETURN_VALUE
+
+Disassembly of <code object balloon at 0x108e05b00, file "malicious_code/py/Listing1/sample99.py", line 20>:
+ 21           0 LOAD_GLOBAL              0 (codecs)
+              2 LOAD_METHOD              1 (decode)
+              4 LOAD_FAST                0 (encoded_cmd)
+              6 LOAD_CONST               1 ('rot_13')
+              8 CALL_METHOD              2
+             10 STORE_FAST               1 (decoded_cmd)
+
+ 22          12 LOAD_GLOBAL              2 (print_random_number)
+             14 CALL_FUNCTION            0
+             16 POP_TOP
+
+ 23          18 LOAD_GLOBAL              3 (random_date)
+             20 CALL_FUNCTION            0
+             22 POP_TOP
+
+ 24          24 LOAD_GLOBAL              4 (subprocess)
+             26 LOAD_ATTR                5 (call)
+             28 LOAD_FAST                1 (decoded_cmd)
+             30 LOAD_CONST               2 (True)
+             32 LOAD_CONST               3 (('shell',))
+             34 CALL_FUNCTION_KW         2
+             36 POP_TOP
+             38 LOAD_CONST               0 (None)
+             40 RETURN_VALUE

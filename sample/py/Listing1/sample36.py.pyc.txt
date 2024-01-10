@@ -1,0 +1,36 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  4           8 LOAD_CONST               2 (<code object hoge at 0x10b6098f0, file "malicious_code/py/Listing1/sample36.py", line 4>)
+             10 LOAD_CONST               3 ('hoge')
+             12 MAKE_FUNCTION            0
+             14 STORE_NAME               1 (hoge)
+
+  8          16 LOAD_NAME                1 (hoge)
+             18 CALL_FUNCTION            0
+             20 POP_TOP
+             22 LOAD_CONST               1 (None)
+             24 RETURN_VALUE
+
+Disassembly of <code object hoge at 0x10b6098f0, file "malicious_code/py/Listing1/sample36.py", line 4>:
+  5           0 BUILD_LIST               0
+              2 LOAD_CONST               1 (('YmF', 'zNj', 'E='))
+              4 LIST_EXTEND              1
+              6 STORE_FAST               0 (b64_str)
+
+  6           8 LOAD_GLOBAL              0 (os)
+             10 LOAD_METHOD              1 (system)
+             12 LOAD_CONST               2 ('echo ')
+             14 LOAD_CONST               3 ('')
+             16 LOAD_METHOD              2 (join)
+             18 LOAD_FAST                0 (b64_str)
+             20 CALL_METHOD              1
+             22 FORMAT_VALUE             0
+             24 LOAD_CONST               4 (' | base64 -d')
+             26 BUILD_STRING             3
+             28 CALL_METHOD              1
+             30 POP_TOP
+             32 LOAD_CONST               0 (None)
+             34 RETURN_VALUE

@@ -1,0 +1,69 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (time)
+             14 STORE_NAME               1 (time)
+
+  4          16 LOAD_CONST               2 (<code object main at 0x10b8a58f0, file "malicious_code/py/Listing1/sample23.py", line 4>)
+             18 LOAD_CONST               3 ('main')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (main)
+
+ 15          24 LOAD_NAME                2 (main)
+             26 CALL_FUNCTION            0
+             28 POP_TOP
+             30 LOAD_CONST               1 (None)
+             32 RETURN_VALUE
+
+Disassembly of <code object main at 0x10b8a58f0, file "malicious_code/py/Listing1/sample23.py", line 4>:
+  5           0 LOAD_CONST               1 ('cHd')
+              2 STORE_FAST               0 (part1)
+
+  6           4 LOAD_CONST               2 ('kCg')
+              6 STORE_FAST               1 (part2)
+
+  7           8 LOAD_CONST               3 ('==')
+             10 STORE_FAST               2 (part3)
+
+  9          12 LOAD_FAST                0 (part1)
+             14 LOAD_FAST                1 (part2)
+             16 LOAD_METHOD              0 (replace)
+             18 LOAD_CONST               4 ('*')
+             20 LOAD_CONST               5 ('')
+             22 CALL_METHOD              2
+             24 BINARY_ADD
+             26 LOAD_FAST                2 (part3)
+             28 BINARY_ADD
+             30 STORE_FAST               3 (encoded_string)
+
+ 10          32 LOAD_GLOBAL              1 (time)
+             34 LOAD_METHOD              2 (sleep)
+             36 LOAD_CONST               6 (0)
+             38 CALL_METHOD              1
+             40 POP_TOP
+
+ 12          42 LOAD_GLOBAL              3 (subprocess)
+             44 LOAD_ATTR                4 (run)
+             46 LOAD_CONST               7 ('echo ')
+             48 LOAD_FAST                3 (encoded_string)
+             50 FORMAT_VALUE             0
+             52 LOAD_CONST               8 (' | base64 -d')
+             54 BUILD_STRING             3
+             56 LOAD_CONST               9 (True)
+             58 LOAD_CONST               9 (True)
+             60 LOAD_CONST               9 (True)
+             62 LOAD_CONST              10 (('shell', 'capture_output', 'text'))
+             64 CALL_FUNCTION_KW         4
+             66 STORE_FAST               4 (result)
+
+ 13          68 LOAD_GLOBAL              5 (print)
+             70 LOAD_FAST                4 (result)
+             72 LOAD_ATTR                6 (stdout)
+             74 CALL_FUNCTION            1
+             76 POP_TOP
+             78 LOAD_CONST               0 (None)
+             80 RETURN_VALUE

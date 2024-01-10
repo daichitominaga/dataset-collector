@@ -1,0 +1,64 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  4           8 LOAD_CONST               2 (<code object join at 0x10d9199a0, file "malicious_code/py/Listing1/sample46.py", line 4>)
+             10 LOAD_CONST               3 ('join')
+             12 MAKE_FUNCTION            0
+             14 STORE_NAME               1 (join)
+
+ 10          16 LOAD_NAME                1 (join)
+             18 CALL_FUNCTION            0
+             20 POP_TOP
+             22 LOAD_CONST               1 (None)
+             24 RETURN_VALUE
+
+Disassembly of <code object join at 0x10d9199a0, file "malicious_code/py/Listing1/sample46.py", line 4>:
+  5           0 BUILD_LIST               0
+              2 LOAD_CONST               1 (('YmF', 'zNj', 'E='))
+              4 LIST_EXTEND              1
+              6 STORE_FAST               0 (encoded_parts)
+
+  6           8 LOAD_CONST               2 ('')
+             10 LOAD_METHOD              0 (join)
+             12 LOAD_CONST               3 (<code object <listcomp> at 0x10d9198f0, file "malicious_code/py/Listing1/sample46.py", line 6>)
+             14 LOAD_CONST               4 ('join.<locals>.<listcomp>')
+             16 MAKE_FUNCTION            0
+             18 LOAD_FAST                0 (encoded_parts)
+             20 GET_ITER
+             22 CALL_FUNCTION            1
+             24 CALL_METHOD              1
+             26 STORE_FAST               1 (encoded_string)
+
+  7          28 LOAD_GLOBAL              1 (subprocess)
+             30 LOAD_ATTR                2 (run)
+             32 LOAD_CONST               5 ('echo ')
+             34 LOAD_FAST                1 (encoded_string)
+             36 FORMAT_VALUE             0
+             38 LOAD_CONST               6 (' | base64 -d')
+             40 BUILD_STRING             3
+             42 LOAD_CONST               7 (True)
+             44 LOAD_CONST               7 (True)
+             46 LOAD_CONST               7 (True)
+             48 LOAD_CONST               8 (('shell', 'capture_output', 'text'))
+             50 CALL_FUNCTION_KW         4
+             52 STORE_FAST               2 (result)
+
+  8          54 LOAD_GLOBAL              3 (print)
+             56 LOAD_FAST                2 (result)
+             58 LOAD_ATTR                4 (stdout)
+             60 CALL_FUNCTION            1
+             62 POP_TOP
+             64 LOAD_CONST               0 (None)
+             66 RETURN_VALUE
+
+Disassembly of <code object <listcomp> at 0x10d9198f0, file "malicious_code/py/Listing1/sample46.py", line 6>:
+  6           0 BUILD_LIST               0
+              2 LOAD_FAST                0 (.0)
+        >>    4 FOR_ITER                 4 (to 14)
+              6 STORE_FAST               1 (part)
+              8 LOAD_FAST                1 (part)
+             10 LIST_APPEND              2
+             12 JUMP_ABSOLUTE            2 (to 4)
+        >>   14 RETURN_VALUE

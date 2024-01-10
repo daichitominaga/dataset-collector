@@ -1,0 +1,91 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  3           8 LOAD_CONST               2 (<code object do_get at 0x1026e99a0, file "malicious_code/py/Listing1/sample15.py", line 3>)
+             10 LOAD_CONST               3 ('do_get')
+             12 MAKE_FUNCTION            0
+             14 STORE_NAME               1 (do_get)
+
+ 16          16 LOAD_NAME                1 (do_get)
+             18 CALL_FUNCTION            0
+             20 POP_TOP
+             22 LOAD_CONST               1 (None)
+             24 RETURN_VALUE
+
+Disassembly of <code object do_get at 0x1026e99a0, file "malicious_code/py/Listing1/sample15.py", line 3>:
+  4           0 SETUP_FINALLY           40 (to 82)
+
+  5           2 LOAD_CONST               1 ('cGFzc3dk')
+              4 STORE_FAST               0 (a)
+
+  6           6 LOAD_CONST               2 ('zc3dk')
+              8 STORE_FAST               1 (b)
+
+  7          10 LOAD_CONST               3 ('dk')
+             12 STORE_FAST               2 (c)
+
+  9          14 LOAD_FAST                0 (a)
+             16 LOAD_FAST                1 (b)
+             18 LOAD_METHOD              0 (replace)
+             20 LOAD_CONST               4 ('****')
+             22 LOAD_CONST               5 ('')
+             24 CALL_METHOD              2
+             26 BINARY_ADD
+             28 LOAD_FAST                2 (c)
+             30 BINARY_ADD
+             32 STORE_FAST               3 (encoded_string)
+
+ 10          34 LOAD_GLOBAL              1 (subprocess)
+             36 LOAD_METHOD              2 (check_output)
+             38 LOAD_CONST               6 ('echo')
+             40 LOAD_FAST                3 (encoded_string)
+             42 BUILD_LIST               2
+             44 CALL_METHOD              1
+             46 STORE_FAST               4 (result)
+
+ 11          48 LOAD_GLOBAL              1 (subprocess)
+             50 LOAD_ATTR                2 (check_output)
+             52 LOAD_CONST               7 ('base64')
+             54 LOAD_CONST               8 ('-d')
+             56 BUILD_LIST               2
+             58 LOAD_FAST                4 (result)
+             60 LOAD_CONST               9 (True)
+             62 LOAD_CONST              10 (('input', 'text'))
+             64 CALL_FUNCTION_KW         3
+             66 STORE_FAST               5 (decoded_result)
+
+ 12          68 LOAD_GLOBAL              3 (print)
+             70 LOAD_FAST                5 (decoded_result)
+             72 CALL_FUNCTION            1
+             74 POP_TOP
+             76 POP_BLOCK
+             78 LOAD_CONST               0 (None)
+             80 RETURN_VALUE
+
+ 13     >>   82 DUP_TOP
+             84 LOAD_GLOBAL              4 (Exception)
+             86 JUMP_IF_NOT_EXC_MATCH    63 (to 126)
+             88 POP_TOP
+             90 STORE_FAST               6 (e)
+             92 POP_TOP
+             94 SETUP_FINALLY           11 (to 118)
+
+ 14          96 LOAD_GLOBAL              3 (print)
+             98 LOAD_FAST                6 (e)
+            100 CALL_FUNCTION            1
+            102 POP_TOP
+            104 POP_BLOCK
+            106 POP_EXCEPT
+            108 LOAD_CONST               0 (None)
+            110 STORE_FAST               6 (e)
+            112 DELETE_FAST              6 (e)
+            114 LOAD_CONST               0 (None)
+            116 RETURN_VALUE
+        >>  118 LOAD_CONST               0 (None)
+            120 STORE_FAST               6 (e)
+            122 DELETE_FAST              6 (e)
+            124 RERAISE                  1
+
+ 13     >>  126 RERAISE                  0

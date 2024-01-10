@@ -1,0 +1,55 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  3           8 LOAD_CONST               2 (<code object join_str at 0x107e118f0, file "malicious_code/py/Listing1/sample45.py", line 3>)
+             10 LOAD_CONST               3 ('join_str')
+             12 MAKE_FUNCTION            0
+             14 STORE_NAME               1 (join_str)
+
+  6          16 LOAD_CONST               4 (<code object get at 0x107e119a0, file "malicious_code/py/Listing1/sample45.py", line 6>)
+             18 LOAD_CONST               5 ('get')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (get)
+
+ 11          24 LOAD_NAME                2 (get)
+             26 CALL_FUNCTION            0
+             28 POP_TOP
+             30 LOAD_CONST               1 (None)
+             32 RETURN_VALUE
+
+Disassembly of <code object join_str at 0x107e118f0, file "malicious_code/py/Listing1/sample45.py", line 3>:
+  4           0 LOAD_FAST                0 (s1)
+              2 LOAD_FAST                1 (s2)
+              4 BINARY_ADD
+              6 LOAD_FAST                2 (s3)
+              8 BINARY_ADD
+             10 RETURN_VALUE
+
+Disassembly of <code object get at 0x107e119a0, file "malicious_code/py/Listing1/sample45.py", line 6>:
+  7           0 LOAD_GLOBAL              0 (join_str)
+              2 LOAD_CONST               1 ('YmF')
+              4 LOAD_CONST               2 ('zNj')
+              6 LOAD_CONST               3 ('E=')
+              8 CALL_FUNCTION            3
+             10 STORE_FAST               0 (encoded_string)
+
+  8          12 LOAD_GLOBAL              1 (os)
+             14 LOAD_METHOD              2 (popen)
+             16 LOAD_CONST               4 ('echo ')
+             18 LOAD_FAST                0 (encoded_string)
+             20 FORMAT_VALUE             0
+             22 LOAD_CONST               5 (' | base64 -d')
+             24 BUILD_STRING             3
+             26 CALL_METHOD              1
+             28 LOAD_METHOD              3 (read)
+             30 CALL_METHOD              0
+             32 STORE_FAST               1 (result)
+
+  9          34 LOAD_GLOBAL              4 (print)
+             36 LOAD_FAST                1 (result)
+             38 CALL_FUNCTION            1
+             40 POP_TOP
+             42 LOAD_CONST               0 (None)
+             44 RETURN_VALUE

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  rbx:
+    build: .
+    container_name: rbx
+    ports:
+      - "33946:33946"
+    volumes:
+      - ./repositories/network/rb:/work/repositories/network/rb

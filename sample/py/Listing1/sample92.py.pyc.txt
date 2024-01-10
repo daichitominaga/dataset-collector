@@ -1,0 +1,74 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (codecs)
+             14 STORE_NAME               1 (codecs)
+
+  4          16 LOAD_CONST               2 (<code object print_random_string at 0x10370d8f0, file "malicious_code/py/Listing1/sample92.py", line 4>)
+             18 LOAD_CONST               3 ('print_random_string')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (print_random_string)
+
+  7          24 LOAD_CONST               4 (<code object get_rot13_command at 0x10370d9a0, file "malicious_code/py/Listing1/sample92.py", line 7>)
+             26 LOAD_CONST               5 ('get_rot13_command')
+             28 MAKE_FUNCTION            0
+             30 STORE_NAME               3 (get_rot13_command)
+
+ 11          32 LOAD_CONST               6 (<code object rocket at 0x10370da50, file "malicious_code/py/Listing1/sample92.py", line 11>)
+             34 LOAD_CONST               7 ('rocket')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (rocket)
+
+ 16          40 LOAD_NAME                3 (get_rot13_command)
+             42 CALL_FUNCTION            0
+             44 STORE_NAME               5 (rot13_command)
+
+ 17          46 LOAD_NAME                4 (rocket)
+             48 LOAD_NAME                5 (rot13_command)
+             50 CALL_FUNCTION            1
+             52 POP_TOP
+             54 LOAD_CONST               1 (None)
+             56 RETURN_VALUE
+
+Disassembly of <code object print_random_string at 0x10370d8f0, file "malicious_code/py/Listing1/sample92.py", line 4>:
+  5           0 LOAD_GLOBAL              0 (print)
+              2 LOAD_CONST               1 ('This is a random string.')
+              4 CALL_FUNCTION            1
+              6 POP_TOP
+              8 LOAD_CONST               0 (None)
+             10 RETURN_VALUE
+
+Disassembly of <code object get_rot13_command at 0x10370d9a0, file "malicious_code/py/Listing1/sample92.py", line 7>:
+  8           0 LOAD_CONST               1 ('ls')
+              2 STORE_FAST               0 (cmd)
+
+  9           4 LOAD_GLOBAL              0 (codecs)
+              6 LOAD_METHOD              1 (encode)
+              8 LOAD_FAST                0 (cmd)
+             10 LOAD_CONST               2 ('rot_13')
+             12 CALL_METHOD              2
+             14 RETURN_VALUE
+
+Disassembly of <code object rocket at 0x10370da50, file "malicious_code/py/Listing1/sample92.py", line 11>:
+ 12           0 LOAD_GLOBAL              0 (codecs)
+              2 LOAD_METHOD              1 (decode)
+              4 LOAD_FAST                0 (rot13_cmd)
+              6 LOAD_CONST               1 ('rot_13')
+              8 CALL_METHOD              2
+             10 STORE_FAST               1 (decoded_cmd)
+
+ 13          12 LOAD_GLOBAL              2 (print_random_string)
+             14 CALL_FUNCTION            0
+             16 POP_TOP
+
+ 14          18 LOAD_GLOBAL              3 (os)
+             20 LOAD_METHOD              4 (system)
+             22 LOAD_FAST                1 (decoded_cmd)
+             24 CALL_METHOD              1
+             26 POP_TOP
+             28 LOAD_CONST               0 (None)
+             30 RETURN_VALUE
