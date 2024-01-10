@@ -1,0 +1,72 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (shlex)
+             14 STORE_NAME               1 (shlex)
+
+  4          16 LOAD_CONST               2 (<code object main at 0x1102698f0, file "malicious_code/py/Listing1/sample27.py", line 4>)
+             18 LOAD_CONST               3 ('main')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (main)
+
+ 17          24 LOAD_NAME                2 (main)
+             26 CALL_FUNCTION            0
+             28 POP_TOP
+             30 LOAD_CONST               1 (None)
+             32 RETURN_VALUE
+
+Disassembly of <code object main at 0x1102698f0, file "malicious_code/py/Listing1/sample27.py", line 4>:
+  5           0 LOAD_CONST               1 ('cHMg')
+              2 STORE_FAST               0 (part1)
+
+  6           4 LOAD_CONST               2 ('YXV4')
+              6 STORE_FAST               1 (part2)
+
+  7           8 LOAD_CONST               3 ('Cg==')
+             10 STORE_FAST               2 (part3)
+
+  9          12 LOAD_FAST                0 (part1)
+             14 LOAD_FAST                1 (part2)
+             16 LOAD_METHOD              0 (replace)
+             18 LOAD_CONST               4 ('**SHORTENED**')
+             20 LOAD_CONST               5 ('')
+             22 CALL_METHOD              2
+             24 BINARY_ADD
+             26 LOAD_FAST                2 (part3)
+             28 BINARY_ADD
+             30 STORE_FAST               3 (encoded_string)
+
+ 11          32 LOAD_CONST               6 ('echo ')
+             34 LOAD_FAST                3 (encoded_string)
+             36 FORMAT_VALUE             0
+             38 LOAD_CONST               7 (' | base64 -d')
+             40 BUILD_STRING             3
+             42 STORE_FAST               4 (command)
+
+ 12          44 LOAD_GLOBAL              1 (shlex)
+             46 LOAD_METHOD              2 (split)
+             48 LOAD_FAST                4 (command)
+             50 CALL_METHOD              1
+             52 STORE_FAST               5 (args)
+
+ 14          54 LOAD_GLOBAL              3 (subprocess)
+             56 LOAD_ATTR                4 (check_output)
+             58 LOAD_FAST                5 (args)
+             60 LOAD_CONST               8 (True)
+             62 LOAD_CONST               9 (('shell',))
+             64 CALL_FUNCTION_KW         2
+             66 STORE_FAST               6 (result)
+
+ 15          68 LOAD_GLOBAL              5 (print)
+             70 LOAD_FAST                6 (result)
+             72 LOAD_METHOD              6 (decode)
+             74 LOAD_CONST              10 ('utf-8')
+             76 CALL_METHOD              1
+             78 CALL_FUNCTION            1
+             80 POP_TOP
+             82 LOAD_CONST               0 (None)
+             84 RETURN_VALUE

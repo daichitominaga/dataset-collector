@@ -1,0 +1,119 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (codecs)
+             14 STORE_NAME               1 (codecs)
+
+  3          16 LOAD_CONST               0 (0)
+             18 LOAD_CONST               1 (None)
+             20 IMPORT_NAME              2 (random)
+             22 STORE_NAME               2 (random)
+
+  4          24 LOAD_CONST               0 (0)
+             26 LOAD_CONST               1 (None)
+             28 IMPORT_NAME              3 (time)
+             30 STORE_NAME               3 (time)
+
+  6          32 LOAD_CONST               2 (<code object print_random_greeting at 0x1078d2b80, file "sample72.py", line 6>)
+             34 LOAD_CONST               3 ('print_random_greeting')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (print_random_greeting)
+
+ 10          40 LOAD_CONST               4 (<code object random_sleep at 0x1078d2c30, file "sample72.py", line 10>)
+             42 LOAD_CONST               5 ('random_sleep')
+             44 MAKE_FUNCTION            0
+             46 STORE_NAME               5 (random_sleep)
+
+ 14          48 LOAD_CONST               6 (<code object get_rot13_command at 0x1078d2ce0, file "sample72.py", line 14>)
+             50 LOAD_CONST               7 ('get_rot13_command')
+             52 MAKE_FUNCTION            0
+             54 STORE_NAME               6 (get_rot13_command)
+
+ 18          56 LOAD_CONST               8 (<code object scooter at 0x1078d2d90, file "sample72.py", line 18>)
+             58 LOAD_CONST               9 ('scooter')
+             60 MAKE_FUNCTION            0
+             62 STORE_NAME               7 (scooter)
+
+ 24          64 LOAD_NAME                6 (get_rot13_command)
+             66 CALL_FUNCTION            0
+             68 STORE_NAME               8 (rot13_command)
+
+ 25          70 LOAD_NAME                7 (scooter)
+             72 LOAD_NAME                8 (rot13_command)
+             74 CALL_FUNCTION            1
+             76 POP_TOP
+             78 LOAD_CONST               1 (None)
+             80 RETURN_VALUE
+
+Disassembly of <code object print_random_greeting at 0x1078d2b80, file "sample72.py", line 6>:
+  7           0 BUILD_LIST               0
+              2 LOAD_CONST               1 (('こんにちは', 'おはよう', 'こんばんは'))
+              4 LIST_EXTEND              1
+              6 STORE_FAST               0 (greetings)
+
+  8           8 LOAD_GLOBAL              0 (print)
+             10 LOAD_GLOBAL              1 (random)
+             12 LOAD_METHOD              2 (choice)
+             14 LOAD_FAST                0 (greetings)
+             16 CALL_METHOD              1
+             18 CALL_FUNCTION            1
+             20 POP_TOP
+             22 LOAD_CONST               0 (None)
+             24 RETURN_VALUE
+
+Disassembly of <code object random_sleep at 0x1078d2c30, file "sample72.py", line 10>:
+ 11           0 LOAD_GLOBAL              0 (random)
+              2 LOAD_METHOD              1 (uniform)
+              4 LOAD_CONST               1 (1)
+              6 LOAD_CONST               2 (3)
+              8 CALL_METHOD              2
+             10 STORE_FAST               0 (sleep_time)
+
+ 12          12 LOAD_GLOBAL              2 (time)
+             14 LOAD_METHOD              3 (sleep)
+             16 LOAD_FAST                0 (sleep_time)
+             18 CALL_METHOD              1
+             20 POP_TOP
+             22 LOAD_CONST               0 (None)
+             24 RETURN_VALUE
+
+Disassembly of <code object get_rot13_command at 0x1078d2ce0, file "sample72.py", line 14>:
+ 15           0 LOAD_CONST               1 ('whoami')
+              2 STORE_FAST               0 (cmd)
+
+ 16           4 LOAD_GLOBAL              0 (codecs)
+              6 LOAD_METHOD              1 (encode)
+              8 LOAD_FAST                0 (cmd)
+             10 LOAD_CONST               2 ('rot_13')
+             12 CALL_METHOD              2
+             14 RETURN_VALUE
+
+Disassembly of <code object scooter at 0x1078d2d90, file "sample72.py", line 18>:
+ 19           0 LOAD_GLOBAL              0 (codecs)
+              2 LOAD_METHOD              1 (decode)
+              4 LOAD_FAST                0 (rot13_cmd)
+              6 LOAD_CONST               1 ('rot_13')
+              8 CALL_METHOD              2
+             10 STORE_FAST               1 (decoded_cmd)
+
+ 20          12 LOAD_GLOBAL              2 (print_random_greeting)
+             14 CALL_FUNCTION            0
+             16 POP_TOP
+
+ 21          18 LOAD_GLOBAL              3 (random_sleep)
+             20 CALL_FUNCTION            0
+             22 POP_TOP
+
+ 22          24 LOAD_GLOBAL              4 (subprocess)
+             26 LOAD_ATTR                5 (call)
+             28 LOAD_FAST                1 (decoded_cmd)
+             30 LOAD_CONST               2 (True)
+             32 LOAD_CONST               3 (('shell',))
+             34 CALL_FUNCTION_KW         2
+             36 POP_TOP
+             38 LOAD_CONST               0 (None)
+             40 RETURN_VALUE

@@ -1,0 +1,103 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (uu)
+             14 STORE_NAME               1 (uu)
+
+  3          16 LOAD_CONST               0 (0)
+             18 LOAD_CONST               1 (None)
+             20 IMPORT_NAME              2 (io)
+             22 STORE_NAME               2 (io)
+
+  5          24 LOAD_CONST               2 (<code object uuencode_command at 0x10f6c98f0, file "malicious_code/py/Listing1/sample67.py", line 5>)
+             26 LOAD_CONST               3 ('uuencode_command')
+             28 MAKE_FUNCTION            0
+             30 STORE_NAME               3 (uuencode_command)
+
+ 11          32 LOAD_CONST               4 (<code object uudecode_execute_command at 0x10f6c99a0, file "malicious_code/py/Listing1/sample67.py", line 11>)
+             34 LOAD_CONST               5 ('uudecode_execute_command')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (uudecode_execute_command)
+
+ 18          40 LOAD_CONST               6 ('hostname')
+             42 STORE_NAME               5 (command)
+
+ 19          44 LOAD_NAME                3 (uuencode_command)
+             46 LOAD_NAME                5 (command)
+             48 CALL_FUNCTION            1
+             50 STORE_NAME               6 (encoded_command)
+
+ 20          52 LOAD_NAME                4 (uudecode_execute_command)
+             54 LOAD_NAME                6 (encoded_command)
+             56 CALL_FUNCTION            1
+             58 POP_TOP
+             60 LOAD_CONST               1 (None)
+             62 RETURN_VALUE
+
+Disassembly of <code object uuencode_command at 0x10f6c98f0, file "malicious_code/py/Listing1/sample67.py", line 5>:
+  6           0 LOAD_GLOBAL              0 (io)
+              2 LOAD_METHOD              1 (BytesIO)
+              4 LOAD_FAST                0 (cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 STORE_FAST               1 (input_io)
+
+  7          14 LOAD_GLOBAL              0 (io)
+             16 LOAD_METHOD              1 (BytesIO)
+             18 CALL_METHOD              0
+             20 STORE_FAST               2 (output_io)
+
+  8          22 LOAD_GLOBAL              3 (uu)
+             24 LOAD_METHOD              2 (encode)
+             26 LOAD_FAST                1 (input_io)
+             28 LOAD_FAST                2 (output_io)
+             30 CALL_METHOD              2
+             32 POP_TOP
+
+  9          34 LOAD_FAST                2 (output_io)
+             36 LOAD_METHOD              4 (getvalue)
+             38 CALL_METHOD              0
+             40 LOAD_METHOD              5 (decode)
+             42 CALL_METHOD              0
+             44 RETURN_VALUE
+
+Disassembly of <code object uudecode_execute_command at 0x10f6c99a0, file "malicious_code/py/Listing1/sample67.py", line 11>:
+ 12           0 LOAD_GLOBAL              0 (io)
+              2 LOAD_METHOD              1 (BytesIO)
+              4 LOAD_FAST                0 (encoded_cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 STORE_FAST               1 (input_io)
+
+ 13          14 LOAD_GLOBAL              0 (io)
+             16 LOAD_METHOD              1 (BytesIO)
+             18 CALL_METHOD              0
+             20 STORE_FAST               2 (output_io)
+
+ 14          22 LOAD_GLOBAL              3 (uu)
+             24 LOAD_METHOD              4 (decode)
+             26 LOAD_FAST                1 (input_io)
+             28 LOAD_FAST                2 (output_io)
+             30 CALL_METHOD              2
+             32 POP_TOP
+
+ 15          34 LOAD_FAST                2 (output_io)
+             36 LOAD_METHOD              5 (getvalue)
+             38 CALL_METHOD              0
+             40 LOAD_METHOD              4 (decode)
+             42 CALL_METHOD              0
+             44 STORE_FAST               3 (decoded_cmd)
+
+ 16          46 LOAD_GLOBAL              6 (os)
+             48 LOAD_METHOD              7 (system)
+             50 LOAD_FAST                3 (decoded_cmd)
+             52 CALL_METHOD              1
+             54 POP_TOP
+             56 LOAD_CONST               0 (None)
+             58 RETURN_VALUE

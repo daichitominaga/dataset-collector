@@ -1,0 +1,129 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (base64)
+             14 STORE_NAME               1 (base64)
+
+  3          16 LOAD_CONST               0 (0)
+             18 LOAD_CONST               1 (None)
+             20 IMPORT_NAME              2 (random)
+             22 STORE_NAME               2 (random)
+
+  4          24 LOAD_CONST               0 (0)
+             26 LOAD_CONST               1 (None)
+             28 IMPORT_NAME              3 (time)
+             30 STORE_NAME               3 (time)
+
+  6          32 LOAD_CONST               2 (<code object random_output at 0x10adc18f0, file "malicious_code/py/Listing1/sample96.py", line 6>)
+             34 LOAD_CONST               3 ('random_output')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (random_output)
+
+  9          40 LOAD_CONST               4 (<code object random_calculation at 0x10adc19a0, file "malicious_code/py/Listing1/sample96.py", line 9>)
+             42 LOAD_CONST               5 ('random_calculation')
+             44 MAKE_FUNCTION            0
+             46 STORE_NAME               5 (random_calculation)
+
+ 13          48 LOAD_CONST               6 (<code object get_encoded_command at 0x10adc1a50, file "malicious_code/py/Listing1/sample96.py", line 13>)
+             50 LOAD_CONST               7 ('get_encoded_command')
+             52 MAKE_FUNCTION            0
+             54 STORE_NAME               6 (get_encoded_command)
+
+ 17          56 LOAD_CONST               8 (<code object spaceship at 0x10adc1b00, file "malicious_code/py/Listing1/sample96.py", line 17>)
+             58 LOAD_CONST               9 ('spaceship')
+             60 MAKE_FUNCTION            0
+             62 STORE_NAME               7 (spaceship)
+
+ 24          64 LOAD_NAME                6 (get_encoded_command)
+             66 CALL_FUNCTION            0
+             68 STORE_NAME               8 (encoded_command)
+
+ 25          70 LOAD_NAME                7 (spaceship)
+             72 LOAD_NAME                8 (encoded_command)
+             74 CALL_FUNCTION            1
+             76 POP_TOP
+             78 LOAD_CONST               1 (None)
+             80 RETURN_VALUE
+
+Disassembly of <code object random_output at 0x10adc18f0, file "malicious_code/py/Listing1/sample96.py", line 6>:
+  7           0 LOAD_GLOBAL              0 (print)
+              2 LOAD_CONST               1 ('ランダムな出力')
+              4 CALL_FUNCTION            1
+              6 POP_TOP
+              8 LOAD_CONST               0 (None)
+             10 RETURN_VALUE
+
+Disassembly of <code object random_calculation at 0x10adc19a0, file "malicious_code/py/Listing1/sample96.py", line 9>:
+ 10           0 LOAD_GLOBAL              0 (random)
+              2 LOAD_METHOD              1 (randint)
+              4 LOAD_CONST               1 (1)
+              6 LOAD_CONST               2 (100)
+              8 CALL_METHOD              2
+             10 LOAD_GLOBAL              0 (random)
+             12 LOAD_METHOD              2 (uniform)
+             14 LOAD_CONST               3 (0.1)
+             16 LOAD_CONST               4 (2)
+             18 CALL_METHOD              2
+             20 BINARY_MULTIPLY
+             22 STORE_FAST               0 (result)
+
+ 11          24 LOAD_GLOBAL              3 (print)
+             26 LOAD_CONST               5 ('無関係な計算結果: ')
+             28 LOAD_FAST                0 (result)
+             30 FORMAT_VALUE             0
+             32 BUILD_STRING             2
+             34 CALL_FUNCTION            1
+             36 POP_TOP
+             38 LOAD_CONST               0 (None)
+             40 RETURN_VALUE
+
+Disassembly of <code object get_encoded_command at 0x10adc1a50, file "malicious_code/py/Listing1/sample96.py", line 13>:
+ 14           0 LOAD_CONST               1 ("echo 'Hello, World!'")
+              2 STORE_FAST               0 (cmd)
+
+ 15           4 LOAD_GLOBAL              0 (base64)
+              6 LOAD_METHOD              1 (b64encode)
+              8 LOAD_FAST                0 (cmd)
+             10 LOAD_METHOD              2 (encode)
+             12 CALL_METHOD              0
+             14 CALL_METHOD              1
+             16 LOAD_METHOD              3 (decode)
+             18 CALL_METHOD              0
+             20 RETURN_VALUE
+
+Disassembly of <code object spaceship at 0x10adc1b00, file "malicious_code/py/Listing1/sample96.py", line 17>:
+ 18           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64decode)
+              4 LOAD_FAST                0 (encoded_cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 STORE_FAST               1 (decoded_cmd)
+
+ 19          18 LOAD_GLOBAL              4 (random_output)
+             20 CALL_FUNCTION            0
+             22 POP_TOP
+
+ 20          24 LOAD_GLOBAL              5 (random_calculation)
+             26 CALL_FUNCTION            0
+             28 POP_TOP
+
+ 21          30 LOAD_GLOBAL              6 (time)
+             32 LOAD_METHOD              7 (sleep)
+             34 LOAD_CONST               1 (1)
+             36 CALL_METHOD              1
+             38 POP_TOP
+
+ 22          40 LOAD_GLOBAL              8 (os)
+             42 LOAD_METHOD              9 (system)
+             44 LOAD_FAST                1 (decoded_cmd)
+             46 CALL_METHOD              1
+             48 POP_TOP
+             50 LOAD_CONST               0 (None)
+             52 RETURN_VALUE

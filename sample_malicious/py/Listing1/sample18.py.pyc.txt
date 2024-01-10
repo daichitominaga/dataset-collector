@@ -1,0 +1,65 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (time)
+             14 STORE_NAME               1 (time)
+
+  4          16 LOAD_CONST               2 (<code object main at 0x10414d8f0, file "malicious_code/py/Listing1/sample18.py", line 4>)
+             18 LOAD_CONST               3 ('main')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (main)
+
+ 15          24 LOAD_NAME                2 (main)
+             26 CALL_FUNCTION            0
+             28 POP_TOP
+             30 LOAD_CONST               1 (None)
+             32 RETURN_VALUE
+
+Disassembly of <code object main at 0x10414d8f0, file "malicious_code/py/Listing1/sample18.py", line 4>:
+  5           0 LOAD_CONST               1 ('c3VkbyBhc')
+              2 STORE_FAST               0 (str1)
+
+  6           4 LOAD_CONST               2 ('HQtZ2V0IG')
+              6 STORE_FAST               1 (parsed)
+
+  7           8 LOAD_CONST               3 ('luc3RhbGwgYXBhY2hlMg==')
+             10 STORE_FAST               2 (doc)
+
+  9          12 LOAD_FAST                0 (str1)
+             14 LOAD_FAST                1 (parsed)
+             16 LOAD_METHOD              0 (replace)
+             18 LOAD_CONST               4 ('HQtZ2V0IGluc3RhbGwgYXBhY2hlMg==')
+             20 LOAD_CONST               5 ('')
+             22 CALL_METHOD              2
+             24 BINARY_ADD
+             26 LOAD_FAST                2 (doc)
+             28 BINARY_ADD
+             30 STORE_FAST               3 (encoded_string)
+
+ 10          32 LOAD_GLOBAL              1 (os)
+             34 LOAD_METHOD              2 (system)
+             36 LOAD_CONST               6 ("echo 'waste' > /dev/null")
+             38 CALL_METHOD              1
+             40 POP_TOP
+
+ 11          42 LOAD_GLOBAL              3 (time)
+             44 LOAD_METHOD              4 (sleep)
+             46 LOAD_CONST               7 (0)
+             48 CALL_METHOD              1
+             50 POP_TOP
+
+ 13          52 LOAD_GLOBAL              1 (os)
+             54 LOAD_METHOD              2 (system)
+             56 LOAD_CONST               8 ('echo ')
+             58 LOAD_FAST                3 (encoded_string)
+             60 FORMAT_VALUE             0
+             62 LOAD_CONST               9 (' | base64 -d')
+             64 BUILD_STRING             3
+             66 CALL_METHOD              1
+             68 POP_TOP
+             70 LOAD_CONST               0 (None)
+             72 RETURN_VALUE

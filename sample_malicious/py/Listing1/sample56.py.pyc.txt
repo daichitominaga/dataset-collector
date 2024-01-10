@@ -1,0 +1,61 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (base64)
+             14 STORE_NAME               1 (base64)
+
+  4          16 LOAD_CONST               2 (<code object obfuscate_command at 0x10c94d8f0, file "malicious_code/py/Listing1/sample56.py", line 4>)
+             18 LOAD_CONST               3 ('obfuscate_command')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (obfuscate_command)
+
+  7          24 LOAD_CONST               4 (<code object execute_obfuscated_command at 0x10c94d9a0, file "malicious_code/py/Listing1/sample56.py", line 7>)
+             26 LOAD_CONST               5 ('execute_obfuscated_command')
+             28 MAKE_FUNCTION            0
+             30 STORE_NAME               3 (execute_obfuscated_command)
+
+ 11          32 LOAD_NAME                2 (obfuscate_command)
+             34 LOAD_CONST               6 ('uname -a')
+             36 CALL_FUNCTION            1
+             38 STORE_NAME               4 (command)
+
+ 12          40 LOAD_NAME                3 (execute_obfuscated_command)
+             42 LOAD_NAME                4 (command)
+             44 CALL_FUNCTION            1
+             46 POP_TOP
+             48 LOAD_CONST               1 (None)
+             50 RETURN_VALUE
+
+Disassembly of <code object obfuscate_command at 0x10c94d8f0, file "malicious_code/py/Listing1/sample56.py", line 4>:
+  5           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64encode)
+              4 LOAD_FAST                0 (cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 RETURN_VALUE
+
+Disassembly of <code object execute_obfuscated_command at 0x10c94d9a0, file "malicious_code/py/Listing1/sample56.py", line 7>:
+  8           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64decode)
+              4 LOAD_FAST                0 (cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 STORE_FAST               1 (decoded_cmd)
+
+  9          18 LOAD_GLOBAL              4 (os)
+             20 LOAD_METHOD              5 (system)
+             22 LOAD_FAST                1 (decoded_cmd)
+             24 CALL_METHOD              1
+             26 POP_TOP
+             28 LOAD_CONST               0 (None)
+             30 RETURN_VALUE

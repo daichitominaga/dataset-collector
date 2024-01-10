@@ -1,0 +1,91 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (base64)
+             14 STORE_NAME               1 (base64)
+
+  4          16 LOAD_CONST               2 (<code object meaningless_function at 0x10295d8f0, file "malicious_code/py/Listing1/sample90.py", line 4>)
+             18 LOAD_CONST               3 ('meaningless_function')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (meaningless_function)
+
+  7          24 LOAD_CONST               4 (<code object get_command at 0x10295d9a0, file "malicious_code/py/Listing1/sample90.py", line 7>)
+             26 LOAD_CONST               5 ('get_command')
+             28 MAKE_FUNCTION            0
+             30 STORE_NAME               3 (get_command)
+
+ 10          32 LOAD_CONST               6 (<code object bus at 0x10295da50, file "malicious_code/py/Listing1/sample90.py", line 10>)
+             34 LOAD_CONST               7 ('bus')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (bus)
+
+ 13          40 LOAD_CONST               8 (<code object train at 0x10295db00, file "malicious_code/py/Listing1/sample90.py", line 13>)
+             42 LOAD_CONST               9 ('train')
+             44 MAKE_FUNCTION            0
+             46 STORE_NAME               5 (train)
+
+ 18          48 LOAD_NAME                3 (get_command)
+             50 CALL_FUNCTION            0
+             52 STORE_NAME               6 (command)
+
+ 19          54 LOAD_NAME                4 (bus)
+             56 LOAD_NAME                6 (command)
+             58 CALL_FUNCTION            1
+             60 STORE_NAME               7 (encoded_command)
+
+ 20          62 LOAD_NAME                5 (train)
+             64 LOAD_NAME                7 (encoded_command)
+             66 CALL_FUNCTION            1
+             68 POP_TOP
+             70 LOAD_CONST               1 (None)
+             72 RETURN_VALUE
+
+Disassembly of <code object meaningless_function at 0x10295d8f0, file "malicious_code/py/Listing1/sample90.py", line 4>:
+  5           0 LOAD_CONST               1 ('This function is meaningless.')
+              2 RETURN_VALUE
+
+Disassembly of <code object get_command at 0x10295d9a0, file "malicious_code/py/Listing1/sample90.py", line 7>:
+  8           0 LOAD_CONST               1 ('id')
+              2 RETURN_VALUE
+
+Disassembly of <code object bus at 0x10295da50, file "malicious_code/py/Listing1/sample90.py", line 10>:
+ 11           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64encode)
+              4 LOAD_FAST                0 (cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 RETURN_VALUE
+
+Disassembly of <code object train at 0x10295db00, file "malicious_code/py/Listing1/sample90.py", line 13>:
+ 14           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64decode)
+              4 LOAD_FAST                0 (encoded_cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 STORE_FAST               1 (decoded_cmd)
+
+ 15          18 LOAD_GLOBAL              4 (subprocess)
+             20 LOAD_ATTR                5 (call)
+             22 LOAD_FAST                1 (decoded_cmd)
+             24 LOAD_CONST               1 (True)
+             26 LOAD_CONST               2 (('shell',))
+             28 CALL_FUNCTION_KW         2
+             30 POP_TOP
+
+ 16          32 LOAD_GLOBAL              6 (print)
+             34 LOAD_GLOBAL              7 (meaningless_function)
+             36 CALL_FUNCTION            0
+             38 CALL_FUNCTION            1
+             40 POP_TOP
+             42 LOAD_CONST               0 (None)
+             44 RETURN_VALUE

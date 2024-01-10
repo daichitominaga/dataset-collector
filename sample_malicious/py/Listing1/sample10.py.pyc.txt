@@ -1,0 +1,67 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  3           8 LOAD_CONST               2 (<code object do_get at 0x1035258f0, file "malicious_code/py/Listing1/sample10.py", line 3>)
+             10 LOAD_CONST               3 ('do_get')
+             12 MAKE_FUNCTION            0
+             14 STORE_NAME               1 (do_get)
+
+ 12          16 LOAD_NAME                1 (do_get)
+             18 CALL_FUNCTION            0
+             20 POP_TOP
+             22 LOAD_CONST               1 (None)
+             24 RETURN_VALUE
+
+Disassembly of <code object do_get at 0x1035258f0, file "malicious_code/py/Listing1/sample10.py", line 3>:
+  4           0 SETUP_FINALLY           20 (to 42)
+
+  5           2 LOAD_CONST               1 ('Y2F0IC9ldGMvcGFzc3dk')
+              4 STORE_FAST               0 (encoded_string)
+
+  6           6 LOAD_FAST                0 (encoded_string)
+              8 LOAD_METHOD              0 (replace)
+             10 LOAD_CONST               2 ('**SHORTENED**')
+             12 LOAD_CONST               3 ('')
+             14 CALL_METHOD              2
+             16 STORE_FAST               0 (encoded_string)
+
+  8          18 LOAD_GLOBAL              1 (os)
+             20 LOAD_METHOD              2 (system)
+             22 LOAD_CONST               4 ('echo ')
+             24 LOAD_FAST                0 (encoded_string)
+             26 FORMAT_VALUE             0
+             28 LOAD_CONST               5 (' | base64 -d')
+             30 BUILD_STRING             3
+             32 CALL_METHOD              1
+             34 POP_TOP
+             36 POP_BLOCK
+             38 LOAD_CONST               0 (None)
+             40 RETURN_VALUE
+
+  9     >>   42 DUP_TOP
+             44 LOAD_GLOBAL              3 (Exception)
+             46 JUMP_IF_NOT_EXC_MATCH    43 (to 86)
+             48 POP_TOP
+             50 STORE_FAST               1 (e)
+             52 POP_TOP
+             54 SETUP_FINALLY           11 (to 78)
+
+ 10          56 LOAD_GLOBAL              4 (print)
+             58 LOAD_FAST                1 (e)
+             60 CALL_FUNCTION            1
+             62 POP_TOP
+             64 POP_BLOCK
+             66 POP_EXCEPT
+             68 LOAD_CONST               0 (None)
+             70 STORE_FAST               1 (e)
+             72 DELETE_FAST              1 (e)
+             74 LOAD_CONST               0 (None)
+             76 RETURN_VALUE
+        >>   78 LOAD_CONST               0 (None)
+             80 STORE_FAST               1 (e)
+             82 DELETE_FAST              1 (e)
+             84 RERAISE                  1
+
+  9     >>   86 RERAISE                  0

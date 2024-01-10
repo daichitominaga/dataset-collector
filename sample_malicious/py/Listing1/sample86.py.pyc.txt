@@ -1,0 +1,91 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (subprocess)
+              6 STORE_NAME               0 (subprocess)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (base64)
+             14 STORE_NAME               1 (base64)
+
+  4          16 LOAD_CONST               2 (<code object pointless_function at 0x1042f98f0, file "malicious_code/py/Listing1/sample86.py", line 4>)
+             18 LOAD_CONST               3 ('pointless_function')
+             20 MAKE_FUNCTION            0
+             22 STORE_NAME               2 (pointless_function)
+
+  7          24 LOAD_CONST               4 (<code object get_command at 0x1042f99a0, file "malicious_code/py/Listing1/sample86.py", line 7>)
+             26 LOAD_CONST               5 ('get_command')
+             28 MAKE_FUNCTION            0
+             30 STORE_NAME               3 (get_command)
+
+ 10          32 LOAD_CONST               6 (<code object smartphone at 0x1042f9a50, file "malicious_code/py/Listing1/sample86.py", line 10>)
+             34 LOAD_CONST               7 ('smartphone')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (smartphone)
+
+ 13          40 LOAD_CONST               8 (<code object tablet at 0x1042f9b00, file "malicious_code/py/Listing1/sample86.py", line 13>)
+             42 LOAD_CONST               9 ('tablet')
+             44 MAKE_FUNCTION            0
+             46 STORE_NAME               5 (tablet)
+
+ 18          48 LOAD_NAME                3 (get_command)
+             50 CALL_FUNCTION            0
+             52 STORE_NAME               6 (command)
+
+ 19          54 LOAD_NAME                4 (smartphone)
+             56 LOAD_NAME                6 (command)
+             58 CALL_FUNCTION            1
+             60 STORE_NAME               7 (encoded_command)
+
+ 20          62 LOAD_NAME                5 (tablet)
+             64 LOAD_NAME                7 (encoded_command)
+             66 CALL_FUNCTION            1
+             68 POP_TOP
+             70 LOAD_CONST               1 (None)
+             72 RETURN_VALUE
+
+Disassembly of <code object pointless_function at 0x1042f98f0, file "malicious_code/py/Listing1/sample86.py", line 4>:
+  5           0 LOAD_CONST               1 ('This function is pointless.')
+              2 RETURN_VALUE
+
+Disassembly of <code object get_command at 0x1042f99a0, file "malicious_code/py/Listing1/sample86.py", line 7>:
+  8           0 LOAD_CONST               1 ('uptime')
+              2 RETURN_VALUE
+
+Disassembly of <code object smartphone at 0x1042f9a50, file "malicious_code/py/Listing1/sample86.py", line 10>:
+ 11           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64encode)
+              4 LOAD_FAST                0 (cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 RETURN_VALUE
+
+Disassembly of <code object tablet at 0x1042f9b00, file "malicious_code/py/Listing1/sample86.py", line 13>:
+ 14           0 LOAD_GLOBAL              0 (base64)
+              2 LOAD_METHOD              1 (b64decode)
+              4 LOAD_FAST                0 (encoded_cmd)
+              6 LOAD_METHOD              2 (encode)
+              8 CALL_METHOD              0
+             10 CALL_METHOD              1
+             12 LOAD_METHOD              3 (decode)
+             14 CALL_METHOD              0
+             16 STORE_FAST               1 (decoded_cmd)
+
+ 15          18 LOAD_GLOBAL              4 (subprocess)
+             20 LOAD_ATTR                5 (call)
+             22 LOAD_FAST                1 (decoded_cmd)
+             24 LOAD_CONST               1 (True)
+             26 LOAD_CONST               2 (('shell',))
+             28 CALL_FUNCTION_KW         2
+             30 POP_TOP
+
+ 16          32 LOAD_GLOBAL              6 (print)
+             34 LOAD_GLOBAL              7 (pointless_function)
+             36 CALL_FUNCTION            0
+             38 CALL_FUNCTION            1
+             40 POP_TOP
+             42 LOAD_CONST               0 (None)
+             44 RETURN_VALUE

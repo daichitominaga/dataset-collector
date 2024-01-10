@@ -12,5 +12,5 @@ bandit_result/
 */**/*.pyc
 */**/*.jsc
 */**/*.rbc
-*/**/DS_Store
+*/**/.DS_Store
 *.pyc

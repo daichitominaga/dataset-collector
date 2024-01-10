@@ -1,0 +1,108 @@
+  1           0 LOAD_CONST               0 (0)
+              2 LOAD_CONST               1 (None)
+              4 IMPORT_NAME              0 (os)
+              6 STORE_NAME               0 (os)
+
+  2           8 LOAD_CONST               0 (0)
+             10 LOAD_CONST               1 (None)
+             12 IMPORT_NAME              1 (subprocess)
+             14 STORE_NAME               1 (subprocess)
+
+  3          16 LOAD_CONST               0 (0)
+             18 LOAD_CONST               1 (None)
+             20 IMPORT_NAME              2 (base64)
+             22 STORE_NAME               2 (base64)
+
+  4          24 LOAD_CONST               0 (0)
+             26 LOAD_CONST               1 (None)
+             28 IMPORT_NAME              3 (time)
+             30 STORE_NAME               3 (time)
+
+  6          32 LOAD_CONST               2 (<code object main at 0x10b8a99a0, file "malicious_code/py/Listing1/sample16.py", line 6>)
+             34 LOAD_CONST               3 ('main')
+             36 MAKE_FUNCTION            0
+             38 STORE_NAME               4 (main)
+
+ 30          40 LOAD_NAME                5 (__name__)
+             42 LOAD_CONST               4 ('__main__')
+             44 COMPARE_OP               2 (==)
+             46 POP_JUMP_IF_FALSE       29 (to 58)
+
+ 31          48 LOAD_NAME                4 (main)
+             50 CALL_FUNCTION            0
+             52 POP_TOP
+             54 LOAD_CONST               1 (None)
+             56 RETURN_VALUE
+
+ 30     >>   58 LOAD_CONST               1 (None)
+             60 RETURN_VALUE
+
+Disassembly of <code object main at 0x10b8a99a0, file "malicious_code/py/Listing1/sample16.py", line 6>:
+  7           0 LOAD_CONST               1 ('Y3VybCAtTyA')
+              2 STORE_FAST               0 (data1)
+
+  8           4 LOAD_CONST               2 ('iaHR0cDovL2V4YW1wbGUuY29tL2ZpbGUucnRmIg==')
+              6 STORE_FAST               1 (data2)
+
+  9           8 LOAD_CONST               3 ('bGUuY29tL2ZpbGUucnRmIg==')
+             10 STORE_FAST               2 (data3)
+
+ 11          12 LOAD_FAST                0 (data1)
+             14 LOAD_FAST                1 (data2)
+             16 LOAD_METHOD              0 (replace)
+             18 LOAD_CONST               3 ('bGUuY29tL2ZpbGUucnRmIg==')
+             20 LOAD_CONST               4 ('')
+             22 CALL_METHOD              2
+             24 BINARY_ADD
+             26 LOAD_FAST                2 (data3)
+             28 BINARY_ADD
+             30 STORE_FAST               3 (encoded_string)
+
+ 14          32 LOAD_GLOBAL              1 (time)
+             34 LOAD_METHOD              2 (sleep)
+             36 LOAD_CONST               5 (0)
+             38 CALL_METHOD              1
+             40 POP_TOP
+
+ 15          42 LOAD_CONST               6 ('filename')
+             44 STORE_FAST               4 (useless_variable)
+
+ 16          46 LOAD_GLOBAL              1 (time)
+             48 LOAD_METHOD              3 (strftime)
+             50 LOAD_CONST               7 ('%Y-%m-%d')
+             52 CALL_METHOD              1
+             54 STORE_FAST               4 (useless_variable)
+
+ 19          56 LOAD_GLOBAL              4 (base64)
+             58 LOAD_METHOD              5 (b64decode)
+             60 LOAD_FAST                3 (encoded_string)
+             62 CALL_METHOD              1
+             64 STORE_FAST               5 (decoded_bytes)
+
+ 20          66 LOAD_FAST                5 (decoded_bytes)
+             68 LOAD_METHOD              6 (decode)
+             70 LOAD_CONST               8 ('utf-8')
+             72 CALL_METHOD              1
+             74 STORE_FAST               6 (decoded_string)
+
+ 23          76 LOAD_FAST                6 (decoded_string)
+             78 STORE_FAST               7 (path)
+
+ 26          80 LOAD_GLOBAL              7 (subprocess)
+             82 LOAD_ATTR                8 (run)
+             84 LOAD_CONST               9 ('echo')
+             86 LOAD_FAST                7 (path)
+             88 BUILD_LIST               2
+             90 LOAD_CONST              10 (True)
+             92 LOAD_CONST              10 (True)
+             94 LOAD_CONST              11 (('capture_output', 'text'))
+             96 CALL_FUNCTION_KW         3
+             98 STORE_FAST               8 (result)
+
+ 27         100 LOAD_GLOBAL              9 (print)
+            102 LOAD_FAST                8 (result)
+            104 LOAD_ATTR               10 (stdout)
+            106 CALL_FUNCTION            1
+            108 POP_TOP
+            110 LOAD_CONST               0 (None)
+            112 RETURN_VALUE
